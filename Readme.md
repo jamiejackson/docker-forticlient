@@ -1,4 +1,4 @@
-# Fortinet VPN Client with Prompted MFA
+# Fortinet VPN Client with MFA
 
 The original project, https://github.com/AuchanDirect/docker-forticlient, doesn't seem to
 handle multi-factor authentication (MFA).
