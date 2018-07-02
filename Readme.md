@@ -1,3 +1,67 @@
+# Fortinet VPN Client with Prompted MFA
+
+The original project, https://github.com/AuchanDirect/docker-forticlient, doesn't seem to
+handle multi-factor authentication (MFA).
+
+However, this project doesn't automate password submission. (See TODOs.)
+
+## One-Time Setup
+
+Setup a small VM and build the docker image.
+
+```sh
+# create an intermediate boot2docker virtual machine
+docker-machine create fortinet --driver virtualbox
+# get into the boot2docker context
+eval $(docker-machine env fortinet)
+# build the image
+docker-compose build --pull
+```
+
+### Setup DNS
+
+TODO: What's a better way to leverage the real remote DNS (for just my subnet)?
+
+`/etc/hosts`
+```
+10.80.16.1 rwHudxDkrDev
+10.80.16.2 rwHudxDkrLt
+10.80.16.3 rwHudxDrkStg
+10.80.16.4 rwHudxDkrUtil
+10.80.16.5 rwHudxDkrPrd
+```
+
+## Per VPN Session
+
+Note, my project has a CIDR of `10.80.16.64/26` (`10.80.16.0-255`). Yours will be different.
+
+```
+# start boot2docker, if it's not already up
+docker-machine start fortinet
+# create a route for your subnet
+sudo route add -net 10.80.16.64/26 $(docker-machine ip fortinet)
+# get into the context of the boot2docker machine.
+eval $(docker-machine env fortinet)
+# start up vpn client. accept the prompts, type password, and accept mfa prompt
+docker-compose run --name vpnc --rm vpnc
+```
+
+# Notes
+
+Removing route (while troubleshooting): `ip route del 10.80.16.64/26`
+
+# TODO
+
+* What's a better way to leverage the real remote DNS (for just my subnet)?
+* Figure out the `expect` necessary for automating the password submission when also using
+  MFA? (I tried to figure out what the expect wanted, but it was tough.)
+  
+  
+----
+
+Upstream README:
+
+
 # forticlient
 
 Connect to a FortiNet VPNs through docker

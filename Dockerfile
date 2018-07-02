@@ -14,7 +14,7 @@ RUN dpkg -x forticlient-sslvpn_amd64.deb /usr/share/forticlient
 RUN /usr/share/forticlient/opt/forticlient-sslvpn/64bit/helper/setup.linux.sh 2
 
 # Copy runfiles
-COPY forticlient /usr/bin/forticlient
+#COPY forticlient /usr/bin/forticlient
 COPY start.sh /start.sh
 
 CMD [ "/start.sh" ]
