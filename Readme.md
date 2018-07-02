@@ -7,6 +7,16 @@ However, this project doesn't automate password submission. (See TODOs.)
 
 ## One-Time Setup
 
+### Clone Project
+
+```sh
+https://github.com/jamiejackson/docker-forticlient.git
+cd docker-forticlient
+git checkout mfa
+```
+
+### Setup VM and Build
+
 Setup a small VM and build the docker image.
 
 ```sh
@@ -29,6 +39,7 @@ TODO: What's a better way to leverage the real remote DNS (for just my subnet)?
 10.80.16.3 rwHudxDrkStg
 10.80.16.4 rwHudxDkrUtil
 10.80.16.5 rwHudxDkrPrd
+...
 ```
 
 ## Per VPN Session
