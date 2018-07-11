@@ -9,7 +9,8 @@ The documentation is currently Mac-only.
 
 ## Get Started
 
-https://github.com/jamiejackson/docker-forticlient.git
+```sh
+git clone https://github.com/jamiejackson/docker-forticlient.git
 cd docker-forticlient
 git checkout mfa
 ```
