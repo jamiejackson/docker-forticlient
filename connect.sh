@@ -67,7 +67,7 @@ myecho "building custom resolver"
 # split multiple nameservers
 IFS=',' read -ra nameserver_ary <<< "$nameservers"
 for nameserver in "${nameserver_ary[@]}"; do
-  printf "nameserver $nameserver" | sudo tee -a "/etc/resolver/$domain"
+  printf "nameserver $nameserver\n" | sudo tee -a "/etc/resolver/$domain"
 done
 
 myecho "creating routes through the vpn for ips on the subnet"
