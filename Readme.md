@@ -21,7 +21,7 @@ Set environment variables by copying `.env_template` to `.env`, then edit `.env`
 
 This is an automatic version of the "Manual Steps" documented below.
 
-`./launch.sh --domain=thedomain.wan --cidr='10.80.0.0/16' --nameservers='10.80.1.10,10.80.1.11'`
+`./connect.sh --domain=thedomain.wan --cidr='10.80.0.0/16' --nameservers='10.80.1.10,10.80.1.11'`
 
 * `domain` is the domain of the WAN whose hosts to which you intend to connect.
 * `cidr` is the subnet IP range of the hosts to which you intend to connect.
