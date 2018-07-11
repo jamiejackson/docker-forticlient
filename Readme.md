@@ -33,7 +33,7 @@ This is an automatic version of the "Manual Steps" documented below.
 ### Clone Project
 
 ```sh
-https://github.com/jamiejackson/docker-forticlient.git
+git clone https://github.com/jamiejackson/docker-forticlient.git
 cd docker-forticlient
 git checkout mfa
 ```
