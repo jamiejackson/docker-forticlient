@@ -29,9 +29,9 @@ This is an automatic version of the "Manual Steps" documented below.
 
 ## Manual Steps
 
-## One-Time Setup
+### One-Time Setup
 
-### Clone Project
+#### Clone Project
 
 ```sh
 git clone https://github.com/jamiejackson/docker-forticlient.git
@@ -39,7 +39,7 @@ cd docker-forticlient
 git checkout mfa
 ```
 
-### Setup VM and Build
+#### Setup VM and Build
 
 Setup a small VM and build the docker image.
 
@@ -52,7 +52,7 @@ eval $(docker-machine env fortinet)
 docker-compose build --pull
 ```
 
-### Setup DNS
+#### Setup DNS
 
 Note: The following uses a domain of `thedomain.wan`, but yours will be different.
 
@@ -66,7 +66,7 @@ nameserver 10.80.1.11
 EOF'
 ```
 
-## Per VPN Session
+### Per VPN Session
 
 Note, my project has a CIDR of `10.80.0.0/16`; yours will be different.
 
