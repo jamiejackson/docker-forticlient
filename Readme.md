@@ -5,6 +5,29 @@ handle multi-factor authentication (MFA).
 
 However, this project doesn't automate password submission. (See TODOs.)
 
+The documentation is currently Mac-only.
+
+## Get Started
+
+https://github.com/jamiejackson/docker-forticlient.git
+cd docker-forticlient
+git checkout mfa
+```
+
+Set environment variables by copying `.env_template` to `.env`, then edit `.env` to contain your own values.
+
+## Automatic Convenience Script
+
+This is an automatic version of the "Manual Steps" documented below.
+
+`./launch.sh --domain=thedomain.wan --cidr='10.80.0.0/16' --nameservers='10.80.1.10,10.80.1.11'`
+
+* `domain` is the domain of the WAN whose hosts to which you intend to connect.
+* `cidr` is the subnet IP range of the hosts to which you intend to connect.
+* `nameservers` provide the DNS for the hosts to which you intend to connect.
+
+## Manual Steps
+
 ## One-Time Setup
 
 ### Clone Project
@@ -30,27 +53,27 @@ docker-compose build --pull
 
 ### Setup DNS
 
-TODO: What's a better way to leverage the real remote DNS (for just my subnet)?
+Note: The following uses a domain of `thedomain.wan`, but yours will be different.
 
-`/etc/hosts`
-```
-10.80.16.1 rwHudxDkrDev
-10.80.16.2 rwHudxDkrLt
-10.80.16.3 rwHudxDrkStg
-10.80.16.4 rwHudxDkrUtil
-10.80.16.5 rwHudxDkrPrd
-...
+```sh
+# prep for a custom resolver
+sudo mkdir -p /etc/resolver
+# add custom resolver
+sudo bash -c 'cat > /etc/resolver/thedomain.wan <<EOF
+nameserver 10.80.1.10
+nameserver 10.80.1.11
+EOF'
 ```
 
 ## Per VPN Session
 
-Note, my project has a CIDR of `10.80.16.64/26` (`10.80.16.0-255`). Yours will be different.
+Note, my project has a CIDR of `10.80.0.0/16`; yours will be different.
 
 ```
 # start boot2docker, if it's not already up
 docker-machine start fortinet
 # create a route for your subnet
-sudo route add -net 10.80.16.64/26 $(docker-machine ip fortinet)
+sudo route add -net 10.80.0.0/16 $(docker-machine ip fortinet)
 # get into the context of the boot2docker machine.
 eval $(docker-machine env fortinet)
 # start up vpn client. accept the prompts, type password, and accept mfa prompt
@@ -59,11 +82,10 @@ docker-compose run --name vpnc --rm vpnc
 
 # Notes
 
-Removing route (while troubleshooting): `ip route del 10.80.16.64/26`
+Removing route (while troubleshooting): `ip route del 10.80.0.0/16`
 
 # TODO
 
-* What's a better way to leverage the real remote DNS (for just my subnet)?
 * Figure out the `expect` necessary for automating the password submission when also using
   MFA? (I tried to figure out what the expect wanted, but it was tough.)
   
